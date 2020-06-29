@@ -3,4 +3,86 @@
    uuid = "2046BCDB-C8CB-4DEA-BF5F-70ED0A3F4F1B"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FD9606CF-1C48-461B-BC40-42ACACC08DAF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Entrainement re&#x301;seau et API/Main .swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "10"
+            endingLineNumber = "10"
+            landmarkName = "QuoteService"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "59840F24-87E8-4330-AF05-B517D6243690"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Entrainement re&#x301;seau et API/Main .swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "getQuote(callback:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EE397C42-967D-4559-B285-FB40F1E6BBC5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Entrainement re&#x301;seau et API/Main .swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "getQuote(callback:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "EE397C42-967D-4559-B285-FB40F1E6BBC5 - fe0bd820c973dff0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Entrainement_r&#xe9;seau_et_API.QuoteService.getQuote(callback: (Swift.Bool, Swift.Optional&lt;Entrainement_r&#xe9;seau_et_API.Quote&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Entrainement re&#x301;seau et API"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fabien/Desktop/Projet%20Openclassrooms/Projet%209/Entrainement%20re%CC%81seau%20et%20API/Entrainement%20re%CC%81seau%20et%20API/Main%20.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "466">
+               </Location>
+               <Location
+                  uuid = "EE397C42-967D-4559-B285-FB40F1E6BBC5 - 68d3dc5301889b1d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Entrainement_r&#xe9;seau_et_API.QuoteService.getQuote(callback: (Swift.Bool, Swift.Optional&lt;Entrainement_r&#xe9;seau_et_API.Quote&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Entrainement re&#x301;seau et API"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fabien/Desktop/Projet%20Openclassrooms/Projet%209/Entrainement%20re%CC%81seau%20et%20API/Entrainement%20re%CC%81seau%20et%20API/Main%20.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "313">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

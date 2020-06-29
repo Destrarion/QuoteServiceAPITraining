@@ -7,49 +7,168 @@
 //
 
 import XCTest
-@testable import Entrainement_re_seau_et_API
+@testable import Entrainement_réseau_et_API
 
-class Entrainement_re_seau_et_APITests: XCTestCase {
+class QuoteServicetestCase : XCTestCase {
+   func testGetQuoteShouldPostFailedCallbackIfError() {
+        // Given
+        let quoteService = QuoteService(
+            quoteSession: URLSessionFake(data: nil, response: nil, error: FakeResponseData.error),
+            imageSession: URLSessionFake(data: nil, response: nil, error: nil))
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        quoteService.getQuote { (success, quote) in
+            // Then
+            XCTAssertFalse(success)
+            XCTAssertNil(quote)
+            expectation.fulfill()
         }
+        wait(for: [expectation], timeout: 0.01)
     }
-    func testDownloadWebData() {
+    
+    func testGetQuoteShouldPostFailedCallbackNoData() {
+        // Given
+        let quoteService = QuoteService(
+            quoteSession: URLSessionFake(data: nil, response: nil, error: nil),
+            imageSession: URLSessionFake(data: nil, response: nil, error: nil))
 
-        // On crée l'expectation en lui donnant une simple description.
-        let expectation = XCTestExpectation(description: "Télécharge le site openclassrooms.com")
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        quoteService.getQuote { (success, quote) in
+            // Then
+            XCTAssertFalse(success)
+            XCTAssertNil(quote)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 0.01)
+    }
+    func testGetQuoteShouldPostFailedCallbackIfIncorrectResponse() {
+        // Given
+        let quoteService = QuoteService(
+            quoteSession: URLSessionFake(data: FakeResponseData.quoteCorrectData, response: FakeResponseData.responseKO, error: nil),
+            imageSession: URLSessionFake(data: nil, response: nil, error: nil))
 
-        // On prépare une requête
-        let url = URL(string: "https://openclassrooms.com")!
-        let dataTask = URLSession(configuration: .default).dataTask(with: url) { (data, _, _) in
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        quoteService.getQuote { (success, quote) in
+            // Then
+            XCTAssertFalse(success)
+            XCTAssertNil(quote)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 0.01)
+    }
+    func testGetQuoteShouldPostFailedCallbackIfIncorrectData() {
+        // Given
+        let quoteService = QuoteService(
+            quoteSession: URLSessionFake(data: FakeResponseData.quoteIncorrectData, response: FakeResponseData.responseOK, error: nil),
+            imageSession: URLSessionFake(data: nil, response: nil, error: nil))
 
-            // On vérifie qu'il y a bien des données qui ont été chargées, c'est ici que le test a lieu.
-            XCTAssertNotNil(data)
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        quoteService.getQuote { (success, quote) in
+            // Then
+            XCTAssertFalse(success)
+            XCTAssertNil(quote)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 0.01)
+    }
+    
+    func testGetQuoteShouldPostSuccessCallbackIfNoErrorAndCorrectData() {
+        // Given
+        let quoteService = QuoteService(
+            quoteSession: URLSessionFake(data: FakeResponseData.quoteCorrectData, response: FakeResponseData.responseOK, error: nil),
+            imageSession: URLSessionFake(data: FakeResponseData.imageData, response: FakeResponseData.responseOK, error: nil))
 
-            // On déclare que l'expectation est terminée, on peut clore le test.
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        quoteService.getQuote { (success, quote) in
+            // Then
+            let text =  "Accept the things to which fate binds you, and love the people with whom fate brings you together, but do so with all your heart.  "
+            let author = "Marcus Aurelius "
+            let imageData = "image".data(using: .utf8)
+            
+            XCTAssertTrue(success)
+            XCTAssertNotNil(quote)
+            
+            XCTAssertEqual(text, quote!.text)
+            XCTAssertEqual(author, quote!.author)
+            XCTAssertEqual(imageData, quote!.imageData)
+
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 0.01)
+    }
+    
+    
+    
+    func testGetQuoteShouldPostFailedNotificationIfIncorrectResponseWhileRetrievingPicture() {
+        // Given
+        let quoteService = QuoteService(
+            quoteSession: URLSessionFake(
+                data: FakeResponseData.quoteCorrectData,
+                response: FakeResponseData.responseOK,
+                error: nil),
+            imageSession: URLSessionFake(
+                data: FakeResponseData.imageData,
+                response: FakeResponseData.responseKO,
+                error: FakeResponseData.error))
+
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        quoteService.getQuote { (success, quote) in
+            // Then
+            XCTAssertFalse(success)
+            XCTAssertNil(quote)
             expectation.fulfill()
         }
 
-        // On lance la requête.
-        dataTask.resume()
-
-        // On attend que l'expectation soit terminée, avec une durée maximum de 10 secondes.
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 0.01)
     }
+    func testGetQuoteShouldPostFailedNotificationIfErrorWhileRetrievingPicture() {
+        // Given
+        let quoteService = QuoteService(
+            quoteSession: URLSessionFake(
+                data: FakeResponseData.quoteCorrectData,
+                response: FakeResponseData.responseOK,
+                error: nil),
+            imageSession: URLSessionFake(
+                data: FakeResponseData.imageData,
+                response: FakeResponseData.responseOK,
+                error: FakeResponseData.error))
+
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        quoteService.getQuote { (success, quote) in
+            // Then
+            XCTAssertFalse(success)
+            XCTAssertNil(quote)
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 0.01)
+    }
+    func testGetQuoteShouldPostFailedNotificationIfNoPictureData() {
+        // Given
+        let quoteService = QuoteService(
+            quoteSession: URLSessionFake(
+                data: FakeResponseData.quoteCorrectData,
+                response: FakeResponseData.responseOK,
+                error: nil),
+            imageSession: URLSessionFake(data: nil, response: nil, error: nil))
+
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        quoteService.getQuote { (success, quote) in
+            // Then
+            XCTAssertFalse(success)
+            XCTAssertNil(quote)
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 0.01)
+    }
+    
 }
